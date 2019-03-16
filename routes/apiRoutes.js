@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 var db = require("../models");
 var mongoose = require("mongoose");
 
@@ -5,6 +6,7 @@ var MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+// eslint-disable-next-line no-unused-vars
 module.exports = function(app) {
   // db.Article.create(result)
   //   .then(function(dbArticle) {
