@@ -6,8 +6,7 @@ var logger = require("morgan");
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
 
-var PORT = 3000;
-
+var PORT = process.env.PORT || 3000;
 // Initialize Express
 var app = express();
 
