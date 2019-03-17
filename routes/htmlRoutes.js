@@ -1,5 +1,6 @@
 var axios = require("axios");
 var cheerio = require("cheerio");
+var db = require("../models");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
@@ -20,6 +21,16 @@ module.exports = function(app) {
         scrapData.data.push(result);
       });
       res.render("index", scrapData);
+    });
+  });
+
+  app.get("/favorites", function(req, res) {
+    db.Article.find({}).then(function(dbArticle) {
+      hbsObject = {
+        data: dbArticle
+      };
+      console.log(hbsObject);
+      res.render("articles", hbsObject);
     });
   });
 };

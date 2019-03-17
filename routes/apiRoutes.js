@@ -19,7 +19,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/articles/:id", function(req, res) {
-    db.Article.findOne({ _id: req.params.id })
+    db.Article.findById(req.params.id)
       .then(function(dbArticle) {
         hbsObject = {
           data: [dbArticle]
@@ -28,14 +28,22 @@ module.exports = function(app) {
         res.render("articles", hbsObject);
       })
       .catch(function(err) {
-        res.json(err);
+        console.log(err);
       });
   });
 
-  app.post("/api/articles", function(req, res) {
-    db.Article.create(req.body)
+  app.put("/api/articles/", function(req, res) {
+    db.Article.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        $set: {
+          title: req.body.title,
+          link: req.body.title
+        }
+      }
+    )
       .then(function(dbArticle) {
-        res.render("articles", dbArticle);
+        res.render("index", dbArticle);
       })
       .catch(function(err) {
         // If an error occurred, log it
@@ -43,10 +51,13 @@ module.exports = function(app) {
       });
   });
 
-  app.put("/api/articles", function(req, res) {
+  app.post("/api/articles", function(req, res) {
     db.Article.create(req.body)
       .then(function(dbArticle) {
-        res.render("articles", dbArticle);
+        hbsObject = {
+          data: [dbArticle]
+        };
+        res.render("articles", hbsObject);
       })
       .catch(function(err) {
         // If an error occurred, log it
