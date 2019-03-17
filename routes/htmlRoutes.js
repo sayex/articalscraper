@@ -23,6 +23,3 @@ module.exports = function(app) {
     });
   });
 };
-
-
-mongodb://heroku_1h3381g0:9uucucrrdkct5declf617hulk5@ds247944.mlab.com:47944/heroku_1h3381g0
