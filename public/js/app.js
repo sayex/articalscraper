@@ -16,4 +16,15 @@ $(function() {
       console.log(response);
     });
   });
+  $(".buttonDeleteFavorite").on("click", function() {
+    var id = $(this).data("id");
+
+    $.ajax("/api/articles/" + id, {
+      type: "DELETE"
+    }).then(function() {
+      // console.log("changed devoured to", newDevourState);
+      // Reload the page to get the updated list
+      location.reload();
+    });
+  });
 });

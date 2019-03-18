@@ -60,4 +60,19 @@ module.exports = function(app) {
         console.log(err);
       });
   });
+  app.delete("/api/articles/:id", function(req, res) {
+    var id = req.params.id;
+
+    db.Article.findByIdAndRemove(id)
+      .then(function(dbArticle) {
+        hbsObject = {
+          data: [dbArticle]
+        };
+        res.render("index", dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, log it
+        console.log(err);
+      });
+  });
 };

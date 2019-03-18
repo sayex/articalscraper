@@ -4,10 +4,15 @@ var db = require("../models");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
+    res.render("index");
+  });
+
+  app.get("/scrap", function(req, res) {
     axios.get("https://www.theonion.com/").then(function(response) {
       var scrapData = {
         data: []
       };
+
       var $ = cheerio.load(response.data);
       $("div.post-wrapper").each(function() {
         var result = {};
@@ -25,7 +30,7 @@ module.exports = function(app) {
           .attr("href");
         scrapData.data.push(result);
       });
-      res.render("index", scrapData);
+      res.render("scrap", scrapData);
     });
   });
 
