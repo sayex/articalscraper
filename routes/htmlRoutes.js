@@ -34,7 +34,6 @@ module.exports = function(app) {
       hbsObject = {
         data: dbArticle
       };
-      console.log(hbsObject);
       res.render("favorites", hbsObject);
     });
   });

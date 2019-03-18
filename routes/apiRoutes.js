@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 var db = require("../models");
 var mongoose = require("mongoose");
 
@@ -6,14 +5,12 @@ var MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
-// eslint-disable-next-line no-unused-vars
 module.exports = function(app) {
   app.get("/api/articles", function(req, res) {
     db.Article.find({}).then(function(dbArticle) {
       hbsObject = {
         data: dbArticle
       };
-      console.log(hbsObject);
       res.render("articles", hbsObject);
     });
   });
@@ -24,7 +21,6 @@ module.exports = function(app) {
         hbsObject = {
           data: [dbArticle]
         };
-        console.log(hbsObject);
         res.render("articles", hbsObject);
       })
       .catch(function(err) {
