@@ -11,7 +11,7 @@ module.exports = function(app) {
       hbsObject = {
         data: dbArticle
       };
-      res.render("articles", hbsObject);
+      res.json(hbsObject);
     });
   });
 
@@ -21,7 +21,7 @@ module.exports = function(app) {
         hbsObject = {
           data: [dbArticle]
         };
-        res.render("articles", hbsObject);
+        res.JSON("favorties", hbsObject);
       })
       .catch(function(err) {
         console.log(err);
@@ -53,7 +53,7 @@ module.exports = function(app) {
         hbsObject = {
           data: [dbArticle]
         };
-        res.render("articles", hbsObject);
+        res.send(dbArticle);
       })
       .catch(function(err) {
         // If an error occurred, log it
