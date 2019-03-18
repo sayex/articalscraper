@@ -35,7 +35,7 @@ module.exports = function(app) {
         data: dbArticle
       };
       console.log(hbsObject);
-      res.render("articles", hbsObject);
+      res.render("favorites", hbsObject);
     });
   });
 };
