@@ -4,18 +4,23 @@ var db = require("../models");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
-    axios.get("http://www.echojs.com/").then(function(response) {
+    axios.get("https://www.theonion.com/").then(function(response) {
       var scrapData = {
         data: []
       };
       var $ = cheerio.load(response.data);
-      // eslint-disable-next-line no-unused-vars
-      $("article h2").each(function(i, element) {
+      $("div.post-wrapper").each(function() {
         var result = {};
         result.title = $(this)
+          .children("article")
+          .children("header")
+          .children("h1")
           .children("a")
           .text();
         result.link = $(this)
+          .children("article")
+          .children("header")
+          .children("h1")
           .children("a")
           .attr("href");
         scrapData.data.push(result);
