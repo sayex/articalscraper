@@ -10,11 +10,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    {{#each notesData}}
-                        <ul>
-                            <li>{{this.text}}</li>
-                        </ul>
-                    {{/each}}
+                    <ul id="ulNotes">
+                        {{#each notesData}}
+                            <li data-id={{this.id}}>{{this.text}} <button type="button" class="btn btn-danger btn-sm noteDelete" data-id={{this.id}}>x</button>
+                            </li>
+                        {{/each}}
+                    </ul>
                     <form>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">New Note:</label>
@@ -24,7 +25,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save New Note</button>
+                    <button type="button" data-Id={{this.articleId}} class="btn btn-primary noteSave">Save New Note</button>
                 </div>
             </div>
         </div>

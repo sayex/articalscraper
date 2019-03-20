@@ -94,11 +94,25 @@ module.exports = function(app) {
       .then(function(dbNotes) {
         hbsObject = {
           layout: false,
-          notesData: dbNotes
+          notesData: dbNotes,
+          articleId: req.params.id
         };
+        console.log(hbsObject);
         res.render("partials/notes", hbsObject);
       })
       .catch(function(err) {
+        console.log(err);
+      });
+  });
+  app.delete("/api/notes/:id", function(req, res) {
+    var id = req.params.id;
+
+    db.Notes.findByIdAndDelete(id)
+      .then(function(dbNotes) {
+        res.json(dbNotes);
+      })
+      .catch(function(err) {
+        // If an error occurred, log it
         console.log(err);
       });
   });
