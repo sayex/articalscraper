@@ -7,10 +7,16 @@ var logger = require("morgan");
 // It works on the client and on the server
 
 var PORT = process.env.PORT || 3000;
+// Configure middleware
 // Initialize Express
 var app = express();
 
-// Configure middleware
+var mongoose = require("mongoose");
+
+var MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));

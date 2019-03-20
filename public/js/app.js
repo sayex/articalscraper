@@ -27,4 +27,16 @@ $(function() {
       location.reload();
     });
   });
+  $(".buttonNote").on("click", function() {
+    var id = $(this).data("id");
+    $.ajax("/api/notes/" + id, {
+      type: "GET"
+    }).then(function(response) {
+      $("#modal").empty();
+      $("#modal").html(response);
+      $("#myModal").modal({
+        show: true
+      });
+    });
+  });
 });

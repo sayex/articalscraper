@@ -1,10 +1,5 @@
 var db = require("../models");
-var mongoose = require("mongoose");
 
-var MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 module.exports = function(app) {
   app.get("/api/articles", function(req, res) {
     db.Article.find({}).then(function(dbArticle) {
@@ -21,7 +16,7 @@ module.exports = function(app) {
         hbsObject = {
           data: [dbArticle]
         };
-        res.JSON("favorties", hbsObject);
+        res.json("favorties", hbsObject);
       })
       .catch(function(err) {
         console.log(err);
@@ -34,12 +29,12 @@ module.exports = function(app) {
       {
         $set: {
           title: req.body.title,
-          link: req.body.title
+          link: req.body.link
         }
       }
     )
       .then(function(dbArticle) {
-        res.render("index", dbArticle);
+        res.render("favorites", dbArticle);
       })
       .catch(function(err) {
         // If an error occurred, log it
@@ -72,6 +67,38 @@ module.exports = function(app) {
       })
       .catch(function(err) {
         // If an error occurred, log it
+        console.log(err);
+      });
+  });
+
+  app.post("/api/notes/:id", function(req, res) {
+    var newNote = {
+      text: req.body.text,
+      article: req.params.id
+    };
+    db.Notes.create(newNote)
+      .then(function(dbArticle) {
+        hbsObject = {
+          data: [dbArticle]
+        };
+        res.send(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, log it
+        console.log(err);
+      });
+  });
+
+  app.get("/api/notes/:id", function(req, res) {
+    db.Notes.find({ article: req.params.id })
+      .then(function(dbNotes) {
+        hbsObject = {
+          layout: false,
+          notesData: dbNotes
+        };
+        res.render("partials/notes", hbsObject);
+      })
+      .catch(function(err) {
         console.log(err);
       });
   });
