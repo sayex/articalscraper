@@ -58,12 +58,19 @@ module.exports = function(app) {
   app.delete("/api/articles/:id", function(req, res) {
     var id = req.params.id;
 
-    db.Article.findByIdAndRemove(id)
-      .then(function(dbArticle) {
-        hbsObject = {
-          data: [dbArticle]
-        };
-        res.render("index", dbArticle);
+    db.Notes.deleteMany({ article: id })
+      .then(function() {
+        db.Article.findByIdAndDelete(id)
+          .then(function(dbArticle) {
+            hbsObject = {
+              data: [dbArticle]
+            };
+            res.render("index", dbArticle);
+          })
+          .catch(function(err) {
+            // If an error occurred, log it
+            console.log(err);
+          });
       })
       .catch(function(err) {
         // If an error occurred, log it
