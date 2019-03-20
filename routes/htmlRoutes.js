@@ -7,7 +7,7 @@ module.exports = function(app) {
     res.render("index");
   });
 
-  app.get("/scrap", function(req, res) {
+  app.get("/scrape", function(req, res) {
     axios.get("https://www.theonion.com/").then(function(response) {
       var scrapData = {
         data: []
@@ -30,7 +30,7 @@ module.exports = function(app) {
           .attr("href");
         scrapData.data.push(result);
       });
-      res.render("scrap", scrapData);
+      res.render("scrape", scrapData);
     });
   });
 
