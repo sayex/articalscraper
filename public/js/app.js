@@ -11,7 +11,11 @@ $(function() {
       type: "POST",
       data: favoriteArticle
     }).then(function(response) {
-      console.log(response);
+      if (response.title === title) {
+        $("button[data-title='" + title + "']")
+          .parent()
+          .remove();
+      }
     });
   });
   $(".buttonDeleteFavorite").on("click", function() {
