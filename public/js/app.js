@@ -11,8 +11,6 @@ $(function() {
       type: "POST",
       data: favoriteArticle
     }).then(function(response) {
-      // console.log("changed devoured to", newDevourState);
-      // Reload the page to get the updated list
       console.log(response);
     });
   });
@@ -22,8 +20,6 @@ $(function() {
     $.ajax("/api/articles/" + id, {
       type: "DELETE"
     }).then(function() {
-      // console.log("changed devoured to", newDevourState);
-      // Reload the page to get the updated list
       location.reload();
     });
   });
