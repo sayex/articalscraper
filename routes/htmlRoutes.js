@@ -2,6 +2,18 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var db = require("../models");
 
+function scrapeCompair(scrapeData) {
+  console.log("articles in Scrap" + scrapeData);
+  db.Article.find({ title: { $in: [scrapeData.title] } })
+    .then(function(dbArticle) {
+      console.log("find statment resutls" + dbArticle);
+      return dbArticle;
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+}
+
 module.exports = function(app) {
   app.get("/", function(req, res) {
     res.render("index");
@@ -9,7 +21,7 @@ module.exports = function(app) {
 
   app.get("/scrape", function(req, res) {
     axios.get("https://www.theonion.com/").then(function(response) {
-      var scrapData = {
+      var scrapeData = {
         data: []
       };
 
@@ -28,9 +40,12 @@ module.exports = function(app) {
           .children("h1")
           .children("a")
           .attr("href");
-        scrapData.data.push(result);
+        scrapeData.data.push(result);
       });
-      res.render("scrape", scrapData);
+      //testing a comapir funtion.
+      var compair = scrapeCompair(scrapeData.data);
+      console.log("compair Var" + compair);
+      res.render("scrape", scrapeData);
     });
   });
 
