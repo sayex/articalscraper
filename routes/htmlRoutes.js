@@ -50,11 +50,13 @@ module.exports = function(app) {
   });
 
   app.get("/favorites", function(req, res) {
-    db.Article.find({}).then(function(dbArticle) {
-      hbsObject = {
-        data: dbArticle
-      };
-      res.render("favorites", hbsObject);
-    });
+    db.Article.find()
+      .sort({ _id: -1 })
+      .then(function(dbArticle) {
+        hbsObject = {
+          data: dbArticle
+        };
+        res.render("favorites", hbsObject);
+      });
   });
 };
