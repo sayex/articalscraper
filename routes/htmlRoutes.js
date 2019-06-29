@@ -26,18 +26,18 @@ module.exports = function(app) {
       };
 
       var $ = cheerio.load(response.data);
-      $("div.post-wrapper").each(function() {
+      $("article").each(function() {
         var result = {};
         result.title = $(this)
-          .children("article")
-          .children("header")
-          .children("h1")
+          .children("div")
+          .children("div")
+          .children("div")
           .children("a")
           .text();
         result.link = $(this)
-          .children("article")
-          .children("header")
-          .children("h1")
+          .children("div")
+          .children("div")
+          .children("div")
           .children("a")
           .attr("href");
         scrapeData.data.push(result);
