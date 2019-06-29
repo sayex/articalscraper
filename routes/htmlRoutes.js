@@ -26,7 +26,7 @@ module.exports = function(app) {
       };
 
       var $ = cheerio.load(response.data);
-      $("article").each(function() {
+      $("article.cw4lnv-0").each(function() {
         var result = {};
         result.title = $(this)
           .children("div")
@@ -36,6 +36,20 @@ module.exports = function(app) {
           .text();
         result.link = $(this)
           .children("div")
+          .children("div")
+          .children("div")
+          .children("a")
+          .attr("href");
+        scrapeData.data.push(result);
+      });
+      $("article.sc-3kpz0l-0").each(function() {
+        var result = {};
+        result.title = $(this)
+          .children("div")
+          .children("div")
+          .children("a")
+          .text();
+        result.link = $(this)
           .children("div")
           .children("div")
           .children("a")
